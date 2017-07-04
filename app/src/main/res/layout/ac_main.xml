@@ -21,7 +21,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@drawable/home_unpressed"
+            android:drawableTop="@drawable/selector_home"
+            android:textColor="@drawable/selector_main_text"
             android:text="首页"
             android:gravity="center"/>
 
@@ -30,7 +31,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@drawable/msg_unpressed"
+            android:drawableTop="@drawable/selector_msg"
+            android:textColor="@drawable/selector_main_text"
             android:text="留言"
             android:gravity="center"/>
 
@@ -40,7 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="4dp"
-            android:drawableTop="@drawable/mine_unpressed"
+            android:drawableTop="@drawable/selector_mine"
+            android:textColor="@drawable/selector_main_text"
             android:text="我"
             android:textSize="10sp"
             android:gravity="center"/>

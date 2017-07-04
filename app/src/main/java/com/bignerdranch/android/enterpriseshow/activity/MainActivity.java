@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.container)
     MyViewPage container;
 
+    private View mSelectView;
+
     private SectionsPagerAdapter adapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,10 +34,15 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         container.setAdapter(adapter);
+        mSelectView = mHomeText;
+        mHomeText.setSelected(true);
     }
 
     @OnClick({R.id.main_home, R.id.main_msg, R.id.main_mine})
     public void onClick(View view) {
+        mSelectView.setSelected(false);
+        view.setSelected(true);
+        mSelectView = view;
         switch (view.getId()) {
             case R.id.main_home:
                 container.setCurrentItem(0);
