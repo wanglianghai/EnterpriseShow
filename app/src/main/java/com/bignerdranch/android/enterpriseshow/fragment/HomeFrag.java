@@ -16,6 +16,8 @@ import com.bignerdranch.android.enterpriseshow.R;
 public class HomeFrag extends Fragment {
     public static HomeFrag fragment;
 
+    private View rootView;
+
     public static HomeFrag newInstance() {
         if (fragment == null) {
             fragment = new HomeFrag();
@@ -26,7 +28,10 @@ public class HomeFrag extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_home, container, false);
-        return view;
+        if (rootView == null) {
+            rootView = inflater.inflate(R.layout.frag_home, container, false);
+        }
+
+        return rootView;
     }
 }
