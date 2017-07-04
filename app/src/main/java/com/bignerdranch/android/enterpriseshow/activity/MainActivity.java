@@ -1,52 +1,51 @@
 package com.bignerdranch.android.enterpriseshow.activity;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.bignerdranch.android.enterpriseshow.R;
-import com.bignerdranch.android.enterpriseshow.fragment.HomeFragment;
-import com.bignerdranch.android.enterpriseshow.fragment.MessageFragment;
-import com.bignerdranch.android.enterpriseshow.fragment.MineFragment;
+import com.bignerdranch.android.enterpriseshow.adapter.SectionsPagerAdapter;
+import com.bignerdranch.android.enterpriseshow.views.MyViewPage;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
-    @Bind(R.id.tab_layout)
-    TabLayout mTabLayout;
-    @Bind(R.id.view_pager)
-    ViewPager mViewPager;
+    @Bind(R.id.main_home)
+    TextView mHomeText;
+    @Bind(R.id.main_mine)
+    TextView mMineText;
+    @Bind(R.id.main_msg)
+    TextView mMsgText;
+    @Bind(R.id.container)
+    MyViewPage container;
 
+    private SectionsPagerAdapter adapter;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.ac_main);
         ButterKnife.bind(this);
 
-        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                switch (position) {
-                    case 0:
-                        return new HomeFragment();
-                    case 1:
-                        return new MessageFragment();
-                    case 2:
-                        return new MineFragment();
-                }
-                return new HomeFragment();
-            }
+        adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        container.setAdapter(adapter);
+    }
 
-            @Override
-            public int getCount() {
-                return 3;
-            }
-        });
-
-        mTabLayout.setupWithViewPager(mViewPager);
+    @OnClick({R.id.main_home, R.id.main_msg, R.id.main_mine})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.main_home:
+                container.setCurrentItem(0);
+                break;
+            case R.id.main_msg:
+                container.setCurrentItem(1);
+                break;
+            case R.id.main_mine:
+                container.setCurrentItem(2);
+                break;
+        }
     }
 }
