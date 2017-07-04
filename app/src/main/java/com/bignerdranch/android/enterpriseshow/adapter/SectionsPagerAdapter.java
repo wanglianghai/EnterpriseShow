@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.bignerdranch.android.enterpriseshow.R;
+import com.bignerdranch.android.enterpriseshow.activity.MainActivity;
 import com.bignerdranch.android.enterpriseshow.fragment.HomeFrag;
 import com.bignerdranch.android.enterpriseshow.fragment.MineFrag;
 import com.bignerdranch.android.enterpriseshow.fragment.MsgFrag;
