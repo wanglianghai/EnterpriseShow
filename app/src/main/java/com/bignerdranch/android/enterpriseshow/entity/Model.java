@@ -5,4 +5,22 @@ package com.bignerdranch.android.enterpriseshow.entity;
  */
 
 public class Model {
+    Long id;
+    String preUrl;// 静态链接
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPreUrl() {
+        return preUrl;
+    }
+
+    public void setPreUrl(String preUrl) {
+        this.preUrl = preUrl;
+    }
 }

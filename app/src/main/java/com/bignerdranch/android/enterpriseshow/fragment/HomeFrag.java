@@ -12,12 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bignerdranch.android.enterpriseshow.R;
+import com.bignerdranch.android.enterpriseshow.activity.ModelWebActivity;
 import com.bignerdranch.android.enterpriseshow.activity.MySiteActivity;
 import com.bignerdranch.android.enterpriseshow.activity.SiteDetailActivity;
 import com.bignerdranch.android.enterpriseshow.activity.SiteStatisticsActivity;
 import com.bignerdranch.android.enterpriseshow.adapter.ModelAdapter;
 import com.bignerdranch.android.enterpriseshow.entity.Model;
+import com.bignerdranch.android.enterpriseshow.http.HttpManager;
 import com.bignerdranch.android.enterpriseshow.views.MyRecyclerView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +74,17 @@ public class HomeFrag extends Fragment {
                 adapter = new ModelAdapter(mArrayList);
                 modelList.setLayoutManager(new GridLayoutManager(activity, 3));
                 modelList.setAdapter(adapter);
+                modelList.addOnItemTouchListener(new OnItemClickListener() {
+                    @Override
+                    public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                        Model model = adapter.getItem(i);
+                        Intent intent = new Intent(activity, ModelWebActivity.class);
+                        intent.putExtra("webUrl",
+                                HttpManager.BASE_URL + model.getPreUrl());
+                        intent.putExtra("modelId", model.getId());
+                        startActivity(intent);
+                    }
+                });
             }
         }
 

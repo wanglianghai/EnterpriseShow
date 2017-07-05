@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <WebView
+        android:background="@color/main_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/model_back_ico"
+            android:layout_toLeftOf="@+id/user_model"
+            android:layout_marginRight="15dp"
+            android:padding="15dp"
+            />
+
+        <TextView
+            android:id="@+id/user_model"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/model_bg"
+            android:text="使用模板"
+            android:gravity="center"
+            android:textColor="@color/main_bg"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

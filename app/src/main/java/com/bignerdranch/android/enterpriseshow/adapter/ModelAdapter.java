@@ -24,7 +24,7 @@ public class ModelAdapter extends BaseQuickAdapter<Model>{
     //宽度的 1/3
     private int sizeW= BaseActivity.W / 3;
 
-    //宽度的 1/3少留些白色背景   屏幕显示1080P
+    //宽度的 1/3少 为两边留白   屏幕显示1080P
     private int sizeY = (int) (BaseActivity.W - 40f * (BaseActivity.W / 1080f)) / 3;
 
     public ModelAdapter(List<Model> data) {

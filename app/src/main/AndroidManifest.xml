@@ -19,6 +19,8 @@
         <activity android:name=".activity.SiteStatisticsActivity"/>
         <activity android:name=".activity.MySiteActivity"/>
         <activity android:name=".activity.SiteDetailActivity"/>
+        <activity android:name=".activity.ModelWebActivity">
+        </activity>
     </application>
 
 </manifest>
