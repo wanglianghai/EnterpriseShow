@@ -166,4 +166,10 @@
         </LinearLayout>
     </LinearLayout>
 
+    <com.bignerdranch.android.enterpriseshow.views.MyRecyclerView
+        android:id="@+id/model_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"/>
+
 </LinearLayout>
