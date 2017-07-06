@@ -9,46 +9,55 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bignerdranch.android.enterpriseshow.R;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ModelWebActivity extends AppCompatActivity {
+    @Bind(R.id.web_view)
+    TextView webView;
     @Bind(R.id.model_relative)
     RelativeLayout modelRelative;
-    @Bind(R.id.web_view)
-    TextView mTextView;
 
     private String mString;
-    private CountDownTimer timer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_model_web);
-        int times = 2000;
         ButterKnife.bind(this);
-        modelRelative.setVisibility(View.GONE);
-
         mString = getIntent().getStringExtra("modelString");
-        mTextView.setText(mString);
-        mTextView.setClickable(true);
-        timer = new CountDownTimer(times, 1000) {
+        webView.setText(mString);
+        webView.setClickable(true);
+
+        setModelRelativeShow();
+    }
+
+    public void onResume() {
+        super.onResume();
+    }
+
+    public void onPause() {
+        super.onPause();
+    }
+
+    private void setModelRelativeShow() {
+        modelRelative.setVisibility(View.GONE);
+        final CountDownTimer timer = new CountDownTimer(2000, 1000) {
+            @Override
             public void onTick(long millisUntilFinished) {
+
             }
 
+            @Override
             public void onFinish() {
                 modelRelative.setVisibility(View.GONE);
-                timer.cancel();
             }
         };
-
-        mTextView.setOnTouchListener(new View.OnTouchListener() {
+        webView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_UP:
                         timer.start();
                         break;
@@ -61,17 +70,4 @@ public class ModelWebActivity extends AppCompatActivity {
             }
         });
     }
-
-    public void onResume() {
-        super.onResume();
-        MobclickAgent.onPageStart("ModelWebActivity");
-        MobclickAgent.onResume(this);
-    }
-
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPageEnd("ModelWebActivity");
-        MobclickAgent.onPause(this);
-    }
-
 }
