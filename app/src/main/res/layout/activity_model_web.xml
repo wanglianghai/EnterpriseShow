@@ -3,12 +3,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <WebView
+    <TextView
+        android:id="@+id/web_view"
         android:background="@color/main_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:text="*"
+        android:textSize="80sp"/>
 
     <RelativeLayout
+        android:id="@+id/model_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">

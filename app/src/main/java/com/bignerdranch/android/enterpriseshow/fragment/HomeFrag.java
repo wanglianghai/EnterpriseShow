@@ -58,10 +58,10 @@ public class HomeFrag extends Fragment {
         super.onCreate(savedInstanceState);
         activity = (AppCompatActivity) getActivity();
         mArrayList = new ArrayList<>();
-        mArrayList.add(new Model());
-        mArrayList.add(new Model());
-        mArrayList.add(new Model());
-        mArrayList.add(new Model());
+        mArrayList.add(new Model("1"));
+        mArrayList.add(new Model("2"));
+        mArrayList.add(new Model("3"));
+        mArrayList.add(new Model("4"));
     }
 
     @Nullable
@@ -79,9 +79,7 @@ public class HomeFrag extends Fragment {
                     public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                         Model model = adapter.getItem(i);
                         Intent intent = new Intent(activity, ModelWebActivity.class);
-                        intent.putExtra("webUrl",
-                                HttpManager.BASE_URL + model.getPreUrl());
-                        intent.putExtra("modelId", model.getId());
+                        intent.putExtra("modelString", model.getString());
                         startActivity(intent);
                     }
                 });

@@ -5,6 +5,18 @@ package com.bignerdranch.android.enterpriseshow.entity;
  */
 
 public class Model {
+    private String mString;
+
+    public Model(String s) {
+        mString = s;
+    }
+
+    public String getString() {
+        return mString;
+    }
+
+    public Model(){}
+
     Long id;
     String preUrl;// 静态链接
 
