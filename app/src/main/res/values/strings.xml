@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">EnterpriseShow</string>
+    <string name="guide"><u>进入新手教学</u></string>
 </resources>
