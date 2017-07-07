@@ -2,11 +2,164 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@color/main_bg">
 
-    <TextView
+    <include
+        layout="@layout/header_layout"/>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="site_detail"/>
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/white_long_bg">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:textColor="@color/main_blue"
+                        android:text="名称"/>
+
+                    <EditText
+                        style="@style/edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="填写网站名称（必填）"/>
+                </LinearLayout>
+
+                <TextView style="@style/line_tv"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:textColor="@color/main_blue"
+                        android:text="联系方式"/>
+
+                    <EditText
+                        style="@style/edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="填写电话或手机号码（选填）"/>
+                </LinearLayout>
+
+                <TextView style="@style/line_tv"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:textColor="@color/main_blue"
+                        android:text="地址"/>
+
+                    <EditText
+                        style="@style/edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="填写企业所在地（选填）"/>
+                </LinearLayout>
+
+                <TextView style="@style/line_tv"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:textColor="@color/main_blue"
+                        android:text="邮箱"/>
+
+                    <EditText
+                        style="@style/edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="填写企业邮箱（选填）"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_long_bg"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/main_blue"
+                    android:padding="12dp"
+                    android:text="企业简介"/>
+
+                <EditText
+                    style="@style/edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:lines="5"
+                    android:hint="请详细介绍您的企业（选填）"
+                    android:gravity="top"
+                    android:paddingTop="13dp"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/white_long_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:textColor="@color/main_blue"
+                    android:text="网站音乐"/>
+
+                <TextView
+                    style="@style/edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/arrow"
+                    android:padding="12dp"
+                    android:text="选择音乐"/>
+
+                <ImageView
+                    android:id="@+id/arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:padding="12dp"
+                    android:src="@drawable/blue_arrow_h"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

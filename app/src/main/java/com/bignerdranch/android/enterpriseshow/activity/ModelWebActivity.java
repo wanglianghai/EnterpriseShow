@@ -1,5 +1,6 @@
 package com.bignerdranch.android.enterpriseshow.activity;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import com.bignerdranch.android.enterpriseshow.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ModelWebActivity extends AppCompatActivity {
     @Bind(R.id.web_view)
@@ -31,6 +33,18 @@ public class ModelWebActivity extends AppCompatActivity {
         webView.setClickable(true);
 
         setModelRelativeShow();
+    }
+
+    @OnClick({R.id.back, R.id.user_model})
+    void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.back:
+                finish();
+                break;
+            case R.id.user_model:
+                startActivity(new Intent(this, SiteDetailActivity.class));
+                break;
+        }
     }
 
     public void onResume() {
