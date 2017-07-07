@@ -14,6 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class MyNetwork {
+    public static final String preUrl = "preUrl";
+    public static final String baseUrl = "http://192.168.1.252:8088/qiyexiu/";
     private static final OkHttpClient httpClient = new OkHttpClient();
     private static CallAdapter.Factory sRxJavaCallAdapterFactory = RxJavaCallAdapterFactory.create();
     private static Converter.Factory gsonConvertFactory = GsonConverterFactory.create();

@@ -55,7 +55,7 @@ public class HomeFrag extends Fragment {
 
         @Override
         public void onError(Throwable e) {
-
+            Log.e(TAG, "onError: ", e);
         }
 
         @Override
@@ -93,7 +93,7 @@ public class HomeFrag extends Fragment {
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         MyItem.DataBean model = (MyItem.DataBean) adapter.getItem(position);
                         Intent intent = new Intent(activity, ModelWebActivity.class);
-                        intent.putExtra("modelString", model.getName());
+                        intent.putExtra(MyNetwork.preUrl, MyNetwork.baseUrl + model.getPreUrl());
                         startActivity(intent);
                     }
                 });

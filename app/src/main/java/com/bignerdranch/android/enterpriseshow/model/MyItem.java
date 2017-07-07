@@ -58,6 +58,15 @@ public class MyItem {
         private int id;
         private String image;
         private String name;
+        private String preUrl;
+
+        public String getPreUrl() {
+            return preUrl;
+        }
+
+        public void setPreUrl(String preUrl) {
+            this.preUrl = preUrl;
+        }
 
         public int getId() {
             return id;
