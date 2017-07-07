@@ -11,6 +11,7 @@
         android:background="@drawable/white_bg"/>
 
     <TextView
+        android:id="@+id/model_text"
         android:layout_width="match_parent"
         android:gravity="center"
         android:text="企业介绍通用"

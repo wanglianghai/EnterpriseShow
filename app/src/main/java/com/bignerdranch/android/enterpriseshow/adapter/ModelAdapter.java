@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.bignerdranch.android.enterpriseshow.R;
 import com.bignerdranch.android.enterpriseshow.activity.BaseActivity;
-import com.bignerdranch.android.enterpriseshow.entity.Model;
+import com.bignerdranch.android.enterpriseshow.model.MyItem;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -20,21 +20,22 @@ import java.util.List;
  * Created by Administrator on 2017/7/5/005.
  */
 
-public class ModelAdapter extends BaseQuickAdapter<Model>{
+public class ModelAdapter extends BaseQuickAdapter<MyItem.DataBean, BaseViewHolder>{
     //宽度的 1/3
     private int sizeW= BaseActivity.W / 3;
 
     //宽度的 1/3少 为两边留白   屏幕显示1080P
     private int sizeY = (int) (BaseActivity.W - 40f * (BaseActivity.W / 1080f)) / 3;
 
-    public ModelAdapter(List<Model> data) {
-        super(R.layout.item_model, data);
+    public ModelAdapter() {
+        super(R.layout.item_model);
     }
 
     @Override
-    protected void convert(BaseViewHolder baseViewHolder, Model model) {
+    protected void convert(BaseViewHolder baseViewHolder, MyItem.DataBean model) {
+        baseViewHolder.setText(R.id.model_text, model.getName());
         final ImageView image = baseViewHolder.getView(R.id.model_image);
-        Glide.with(mContext).load(R.drawable.model_detail_ico).asBitmap().into(new SimpleTarget<Bitmap>() {
+        Glide.with(mContext).load(model.getImage() == null ? R.drawable.model_detail_ico : model.getImage()).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                 //得到定义视图的属性重新设置

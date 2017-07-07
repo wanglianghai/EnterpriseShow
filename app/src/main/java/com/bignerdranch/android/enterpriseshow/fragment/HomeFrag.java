@@ -17,18 +17,20 @@ import com.bignerdranch.android.enterpriseshow.activity.MySiteActivity;
 import com.bignerdranch.android.enterpriseshow.activity.SiteDetailActivity;
 import com.bignerdranch.android.enterpriseshow.activity.SiteStatisticsActivity;
 import com.bignerdranch.android.enterpriseshow.adapter.ModelAdapter;
-import com.bignerdranch.android.enterpriseshow.entity.Model;
-import com.bignerdranch.android.enterpriseshow.http.HttpManager;
+
+import com.bignerdranch.android.enterpriseshow.model.MyItem;
+import com.bignerdranch.android.enterpriseshow.network.MyNetwork;
 import com.bignerdranch.android.enterpriseshow.views.MyRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observer;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2017/7/3/003.
@@ -38,14 +40,30 @@ public class HomeFrag extends Fragment {
     @Bind(R.id.model_list)
     MyRecyclerView modelList;
 
+    private Subscription mSubscription;
     private static final String TAG = "HomeFrag";
     public static HomeFrag fragment;
     private AppCompatActivity activity;
     private ModelAdapter adapter;
-    private List<Model> mArrayList;
 
     private View rootView;
+    private Observer<MyItem> mObserver = new Observer<MyItem>() {
+        @Override
+        public void onCompleted() {
 
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onNext(MyItem myItem) {
+            Log.i(TAG, "onNext: " + myItem.getData().size());
+            adapter.setNewData(myItem.getData());
+        }
+    };
     public static HomeFrag newInstance() {
         if (fragment == null) {
             fragment = new HomeFrag();
@@ -57,11 +75,6 @@ public class HomeFrag extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = (AppCompatActivity) getActivity();
-        mArrayList = new ArrayList<>();
-        mArrayList.add(new Model("1"));
-        mArrayList.add(new Model("2"));
-        mArrayList.add(new Model("3"));
-        mArrayList.add(new Model("4"));
     }
 
     @Nullable
@@ -71,15 +84,16 @@ public class HomeFrag extends Fragment {
             rootView = inflater.inflate(R.layout.frag_home, container, false);
             ButterKnife.bind(this, rootView);
             if (adapter == null) {
-                adapter = new ModelAdapter(mArrayList);
+                adapter = new ModelAdapter();
+                search();
                 modelList.setLayoutManager(new GridLayoutManager(activity, 3));
                 modelList.setAdapter(adapter);
                 modelList.addOnItemTouchListener(new OnItemClickListener() {
                     @Override
-                    public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                        Model model = adapter.getItem(i);
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        MyItem.DataBean model = (MyItem.DataBean) adapter.getItem(position);
                         Intent intent = new Intent(activity, ModelWebActivity.class);
-                        intent.putExtra("modelString", model.getString());
+                        intent.putExtra("modelString", model.getName());
                         startActivity(intent);
                     }
                 });
@@ -105,4 +119,23 @@ public class HomeFrag extends Fragment {
         }
     }
 
+    private void search() {
+        mSubscription = MyNetwork.myApi()
+                .search()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mObserver);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unSubscription();
+    }
+
+    private void unSubscription() {
+        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+            mSubscription.unsubscribe();
+        }
+    }
 }
