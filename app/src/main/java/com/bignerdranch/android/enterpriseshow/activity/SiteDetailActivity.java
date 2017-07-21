@@ -20,6 +20,8 @@ import butterknife.OnClick;
 public class SiteDetailActivity extends AppCompatActivity {
     @Bind(R.id.header_title)
     TextView headerTitle;
+    @Bind(R.id.header_right)
+    TextView headerRight;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class SiteDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         headerTitle.setText("编辑企业基本信息");
+        headerRight.setText("保存");
     }
 
     @OnClick({R.id.header_back})

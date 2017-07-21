@@ -65,7 +65,7 @@ public class ModelWebActivity extends AppCompatActivity {
                 if (webView.canGoBack()) {
                     webView.goBack();
                 } else {
-                    finish();
+                    super.onBackPressed();
                 }
                 break;
             case R.id.user_model:
