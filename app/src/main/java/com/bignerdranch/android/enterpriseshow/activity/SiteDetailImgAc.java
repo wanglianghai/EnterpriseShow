@@ -55,7 +55,7 @@ public class SiteDetailImgAc extends AppCompatActivity {
                 Log.i(TAG, "onActivityResult: photo");
                 ImageBean image = new ImageBean(UriUtil.getPhotoFileString());
                 ImageLibrary.get().getImageBeen().add(image);
-                setResult(SiteDetailActivity.UPDATE);
+                setResult(Activity.RESULT_OK);
                 this.finish();
                 break;
         }

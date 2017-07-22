@@ -68,8 +68,11 @@ public class SiteDetailActivity extends AppCompatActivity {
 
         switch (requestCode) {
             case UPDATE:
+                mImageBeen.clear();
+                mImageBeen.add(null);
                 for (ImageBean bean: ImageLibrary.get().getImageBeen()) {
                     mImageBeen.add(bean);
+                    Log.i(TAG, "onActivityResult: " + bean.getImagePath());
                 }
                 mAdapter.notifyDataSetChanged();
                 break;

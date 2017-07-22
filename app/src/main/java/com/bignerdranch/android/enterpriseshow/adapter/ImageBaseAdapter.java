@@ -5,11 +5,14 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.bignerdranch.android.enterpriseshow.R;
 import com.bignerdranch.android.enterpriseshow.activity.BaseActivity;
@@ -17,9 +20,11 @@ import com.bignerdranch.android.enterpriseshow.activity.SiteDetailActivity;
 import com.bignerdranch.android.enterpriseshow.activity.SiteDetailImgAc;
 import com.bignerdranch.android.enterpriseshow.bean.ImageBean;
 import com.bignerdranch.android.enterpriseshow.uri.UriUtil;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -50,16 +55,22 @@ public class ImageBaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == CAMERA) {
-            View v = LayoutInflater.from(mContext).inflate(R.layout.ac_site_detail_item_camera, parent, false);
-            return new CameraHolder(v);
+            return new CameraHolder(getView(R.layout.ac_site_detail_item_camera, parent));
         } else {
-            View v = LayoutInflater.from(mContext).inflate()
+            return new ImageHolder(getView(R.layout.ac_site_detail_item_img, parent));
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (position > 0) {
+            ImageHolder item = (ImageHolder) holder;
+            item.bind(mImageBeen.get(position));
+        }
+    }
 
+    private View getView(int layoutRes, ViewGroup parent) {
+        return LayoutInflater.from(mContext).inflate(layoutRes, parent, false);
     }
 
     @Override
@@ -110,6 +121,24 @@ public class ImageBaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
 
             ac.startActivityForResult(intent, SiteDetailImgAc.REQUEST_PHOTO);
+        }
+    }
+
+    class ImageHolder extends RecyclerView.ViewHolder{
+        @Bind(R.id.image)
+        ImageView mImageView;
+
+        public ImageHolder(View itemView) {
+            super(itemView);
+            ViewGroup.LayoutParams params = itemView.getLayoutParams();
+            params.height = BaseActivity.W / 4;
+            itemView.setLayoutParams(params);
+            ButterKnife.bind(this, itemView);
+        }
+
+        public void bind(ImageBean bean) {
+            //没给出大小不能设置（133-135itemView.setLayoutParams(params);）
+            Glide.with(mContext).load(bean.getImagePath()).into(mImageView);
         }
     }
 }
