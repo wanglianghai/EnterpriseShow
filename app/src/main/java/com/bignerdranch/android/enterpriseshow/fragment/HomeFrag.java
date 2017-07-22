@@ -120,11 +120,11 @@ public class HomeFrag extends Fragment {
     }
 
     private void search() {
-        mSubscription = MyNetwork.myApi()
+        /*mSubscription = MyNetwork.myApi()
                 .search()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mObserver);
+                .subscribe(mObserver);*/
     }
 
     @Override

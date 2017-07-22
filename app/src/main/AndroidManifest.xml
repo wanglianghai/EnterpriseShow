@@ -23,6 +23,23 @@
         <activity android:name=".activity.SiteDetailActivity"/>
         <activity android:name=".activity.ModelWebActivity">
         </activity>
+        <activity android:name=".activity.SiteDetailImgAc">
+        </activity>
+
+        <!--配置provider就是共享区域的Uri位置-->
+        <!--android:name引用的系统资源-->
+        <!--android:exported="false"不曝露，自己可见和授权的-->
+        <!--android:grantUriPermissions="true"uri授权-->
+        <provider
+            android:authorities="com.bignerdranch.android.enterpriseshow"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <!--配置files provider 和配置存放的路径-->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/files"/>
+        </provider>
     </application>
 
 </manifest>
