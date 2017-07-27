@@ -21,6 +21,7 @@ import com.bignerdranch.android.enterpriseshow.bean.ImageBean;
 import com.bignerdranch.android.enterpriseshow.bean.ImageLibrary;
 import com.bignerdranch.android.enterpriseshow.uri.UriUtil;
 import com.bignerdranch.android.enterpriseshow.util.MPermissionUtil;
+import com.bignerdranch.android.enterpriseshow.views.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,7 @@ public class SiteDetailImgAc extends AppCompatActivity {
         mImageBeen.add(null);
         mImgAdapter = new SiteDetailImgAdapter(this, mImageBeen);
         mRecyclerView.setAdapter(mImgAdapter);
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(10));
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
 
         getImageList();

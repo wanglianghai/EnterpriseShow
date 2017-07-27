@@ -17,6 +17,7 @@ import com.bignerdranch.android.enterpriseshow.R;
 import com.bignerdranch.android.enterpriseshow.adapter.SiteDetailAdapter;
 import com.bignerdranch.android.enterpriseshow.bean.ImageBean;
 import com.bignerdranch.android.enterpriseshow.bean.ImageLibrary;
+import com.bignerdranch.android.enterpriseshow.views.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,7 @@ public class SiteDetailActivity extends AppCompatActivity {
 
         mAdapter = new SiteDetailAdapter(this, mImageBeen);
         mDetailRecycler.setAdapter(mAdapter);
+        mDetailRecycler.addItemDecoration(new SpaceItemDecoration(10));
         mDetailRecycler.setLayoutManager(new GridLayoutManager(this, 4));
 
         headerTitle.setText("编辑企业基本信息");
