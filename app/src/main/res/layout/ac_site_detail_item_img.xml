@@ -11,4 +11,11 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher"/>
 
+    <!--视图会覆盖，放在下面，视图是一层一层加上去的-->
+    <CheckBox
+        android:layout_alignParentRight="true"
+        style="@style/checkBoxPicture"
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
+
 </RelativeLayout>
