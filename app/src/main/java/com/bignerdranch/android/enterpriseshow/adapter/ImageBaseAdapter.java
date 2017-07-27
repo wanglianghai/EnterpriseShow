@@ -31,6 +31,7 @@ import butterknife.OnClick;
 /**
  * Created by Administrator on 2017/7/22/022.
  */
+//根据数据加载图片，和对应的点击事件，holder为1/4的屏宽度
 public class ImageBaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int CAMERA = 1;
     private static final int PICTURE = 2;
@@ -130,10 +131,11 @@ public class ImageBaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public ImageHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
+
             ViewGroup.LayoutParams params = itemView.getLayoutParams();
             params.height = BaseActivity.W / 4;
             itemView.setLayoutParams(params);
-            ButterKnife.bind(this, itemView);
         }
 
         public void bind(ImageBean bean) {
