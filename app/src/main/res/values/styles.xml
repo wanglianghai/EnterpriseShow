@@ -32,4 +32,8 @@
     <style name="checkBoxPicture" parent="android:Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/picture_check_box</item>
     </style>
+
+    <style name="checkBoxPictureD" parent="android:Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/delete_image_ico</item>
+    </style>
 </resources>

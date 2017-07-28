@@ -104,12 +104,13 @@ public class SiteDetailImgAc extends AppCompatActivity implements ImageSelectCli
         thread.start();
     }
 
+    //监听adapter中的item点击事件
     @Override
     public void clickImage(int position) {
         ImageBean bean = mImageBeen.get(position);
-        if (ImageLibrary.get().contain(bean)) {
+        if (ImageLibrary.get().contain(bean) >= 0) {
             //bean要全部一样
-            ImageLibrary.get().getImageBeen().remove(bean);
+            ImageLibrary.get().getImageBeen().remove(ImageLibrary.get().contain(bean));
             bean.setSelected(false);
             buConfirmSetText();
             if (ImageLibrary.get().getImageBeen().size() == 8) {
@@ -117,6 +118,7 @@ public class SiteDetailImgAc extends AppCompatActivity implements ImageSelectCli
             }
             return;
         }
+
         if (ImageLibrary.get().getImageBeen().size() >= 9) {
             Toast.makeText(this, "最多只能上传9张图片", Toast.LENGTH_SHORT).show();
             mImgAdapter.notifyDataSetChanged();
@@ -128,6 +130,7 @@ public class SiteDetailImgAc extends AppCompatActivity implements ImageSelectCli
         buConfirmSetText();
     }
 
+    //设置confirm按钮文字
     private void buConfirmSetText() {
         String numString = ImageLibrary.get().getImageBeen().size() + "";
         mButtonConfirm.setText("确定 " + numString + "/9");

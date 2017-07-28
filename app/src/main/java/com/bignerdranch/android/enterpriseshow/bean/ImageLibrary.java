@@ -27,12 +27,13 @@ public class ImageLibrary {
     }
 
     //存在返回true
-    public boolean contain(ImageBean bean) {
-        for (ImageBean i:mImageBeen) {
-            if (i.getImagePath().equals(bean.getImagePath())) {
-                return true;
+    public int contain(ImageBean bean) {
+        for (int i = 0; i < mImageBeen.size(); i++) {
+            if (mImageBeen.get(i).getImagePath().equals(bean.getImagePath())) {
+                return i;
             }
         }
-        return false;
+
+        return -1;
     }
 }

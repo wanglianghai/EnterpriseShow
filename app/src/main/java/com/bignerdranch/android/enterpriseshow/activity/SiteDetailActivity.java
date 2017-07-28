@@ -98,6 +98,9 @@ public class SiteDetailActivity extends AppCompatActivity implements ImageSelect
 
     @Override
     public void clickImage(int position) {
-
+        //只有修改传进adapter中的数据才能修改视图的显示
+        mImageBeen.remove(position);
+        ImageLibrary.get().getImageBeen().remove(position - 1);
+        mAdapter.notifyDataSetChanged();
     }
 }

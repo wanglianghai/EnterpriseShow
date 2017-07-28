@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bignerdranch.android.enterpriseshow.R;
 import com.bignerdranch.android.enterpriseshow.activity.BaseActivity;
@@ -45,7 +46,11 @@ public abstract class ImageBaseAdapter extends RecyclerView.Adapter<RecyclerView
 
     private List<ImageBean> mImageBeen;
 
-    public abstract void click(CheckBox checkBox);
+    @LayoutRes
+    public int layoutRes() {
+        return R.layout.ac_site_detail_item_img;
+    }
+    public void click(CheckBox checkBox){};
     public ImageBaseAdapter(AppCompatActivity context, List<ImageBean> imageBeen) {
         mContext = context;
         mClicked = (ImageSelectClicked) context;
@@ -65,7 +70,7 @@ public abstract class ImageBaseAdapter extends RecyclerView.Adapter<RecyclerView
         if (viewType == CAMERA) {
             return new CameraHolder(getView(R.layout.ac_site_detail_item_camera, parent));
         } else {
-            return new ImageHolder(getView(R.layout.ac_site_detail_item_img, parent));
+            return new ImageHolder(getView(layoutRes(), parent));
         }
     }
 
@@ -105,6 +110,10 @@ public abstract class ImageBaseAdapter extends RecyclerView.Adapter<RecyclerView
 
             if (mContext instanceof SiteDetailImgAc) {
                 SiteDetailImgAc siteDetailImgAc = (SiteDetailImgAc) mContext;
+                if (ImageLibrary.get().getImageBeen().size() >= 9) {
+                    Toast.makeText(siteDetailImgAc, "最多只能上传9张图片", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 offCamera(siteDetailImgAc);
             }
         }
@@ -163,7 +172,7 @@ public abstract class ImageBaseAdapter extends RecyclerView.Adapter<RecyclerView
             //没给出大小不能设置（133-135itemView.setLayoutParams(params);）
             Glide.with(mContext).load(bean.getImagePath()).into(mImageView);
             mCheckBox.setChecked(bean.isSelected());
-            if (ImageLibrary.get().contain(bean)) {
+            if (ImageLibrary.get().contain(bean) >= 0) {
                 mCheckBox.setChecked(true);
             }
             if (ImageLibrary.get().getImageBeen().size() >= 9) {

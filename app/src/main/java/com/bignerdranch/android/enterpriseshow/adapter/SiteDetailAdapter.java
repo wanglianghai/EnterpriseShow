@@ -17,6 +17,7 @@ import com.bignerdranch.android.enterpriseshow.activity.BaseActivity;
 import com.bignerdranch.android.enterpriseshow.activity.SiteDetailActivity;
 import com.bignerdranch.android.enterpriseshow.activity.SiteDetailImgAc;
 import com.bignerdranch.android.enterpriseshow.bean.ImageBean;
+import com.bignerdranch.android.enterpriseshow.bean.ImageLibrary;
 import com.bignerdranch.android.enterpriseshow.model.SiteDetailImg;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -37,8 +38,10 @@ public class SiteDetailAdapter extends ImageBaseAdapter {
         super(context, imageBeen);
     }
 
-    @Override
-    public void click(CheckBox checkBox) {
 
+    @Override
+    public int layoutRes() {
+        return R.layout.ac_site_detail_item_img_d;
     }
+
 }
