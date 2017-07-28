@@ -32,6 +32,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SiteDetailImgAc extends AppCompatActivity implements ImageSelectClicked {
     private static final String TAG = "SiteDetailImgAc";
@@ -54,6 +55,11 @@ public class SiteDetailImgAc extends AppCompatActivity implements ImageSelectCli
         }
     };
 
+    @OnClick({R.id.button_confirm})
+    void onClick() {
+        setResult(Activity.RESULT_OK);
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +79,6 @@ public class SiteDetailImgAc extends AppCompatActivity implements ImageSelectCli
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
 
         buConfirmSetText();
-        mButtonConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         getImageList();
     }
 
@@ -90,8 +90,6 @@ public class SiteDetailImgAc extends AppCompatActivity implements ImageSelectCli
 
         switch (requestCode) {
             case REQUEST_PHOTO:
-                Uri uri = UriUtil.getPhotoFileUri();
-
                 Log.i(TAG, "onActivityResult: photo");
                 ImageBean image = new ImageBean(UriUtil.getPhotoFileString());
                 ImageLibrary.get().getImageBeen().add(image);
@@ -114,14 +112,19 @@ public class SiteDetailImgAc extends AppCompatActivity implements ImageSelectCli
             ImageLibrary.get().getImageBeen().remove(bean);
             bean.setSelected(false);
             buConfirmSetText();
+            if (ImageLibrary.get().getImageBeen().size() == 8) {
+                mImgAdapter.notifyDataSetChanged();
+            }
             return;
         }
-        bean.setSelected(true);
-        ImageLibrary.get().getImageBeen().add(bean);
         if (ImageLibrary.get().getImageBeen().size() >= 9) {
             Toast.makeText(this, "最多只能上传9张图片", Toast.LENGTH_SHORT).show();
+            mImgAdapter.notifyDataSetChanged();
             return;
         }
+
+        bean.setSelected(true);
+        ImageLibrary.get().getImageBeen().add(bean);
         buConfirmSetText();
     }
 

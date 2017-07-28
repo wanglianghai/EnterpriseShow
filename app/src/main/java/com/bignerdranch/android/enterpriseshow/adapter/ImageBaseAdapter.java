@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -134,9 +135,9 @@ public abstract class ImageBaseAdapter extends RecyclerView.Adapter<RecyclerView
     class ImageHolder extends RecyclerView.ViewHolder{
         @Bind(R.id.image)
         ImageView mImageView;
-
         @Bind(R.id.checkbox_image)
         CheckBox mCheckBox;
+        private View mView;
 
         public ImageHolder(View itemView) {
             super(itemView);
@@ -144,6 +145,7 @@ public abstract class ImageBaseAdapter extends RecyclerView.Adapter<RecyclerView
 
             mCheckBox.setClickable(false);
 
+            mView = itemView;
             ViewGroup.LayoutParams params = itemView.getLayoutParams();
             params.height = BaseActivity.W / 4;
             itemView.setLayoutParams(params);
@@ -164,6 +166,25 @@ public abstract class ImageBaseAdapter extends RecyclerView.Adapter<RecyclerView
             if (ImageLibrary.get().contain(bean)) {
                 mCheckBox.setChecked(true);
             }
+            if (ImageLibrary.get().getImageBeen().size() >= 9) {
+                if (!mCheckBox.isChecked()) {
+                    cannotSelect();
+                } else {
+                    canSelect();
+                }
+            } else {
+                canSelect();
+            }
+        }
+
+        public void canSelect() {
+            mView.setClickable(true);
+            mView.setAlpha(1.0f);
+        }
+
+        public void cannotSelect() {
+            mView.setClickable(false);
+            mView.setAlpha(0.5f);
         }
     }
 }
