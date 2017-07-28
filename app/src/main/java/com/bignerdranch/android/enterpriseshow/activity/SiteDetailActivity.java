@@ -17,6 +17,7 @@ import com.bignerdranch.android.enterpriseshow.R;
 import com.bignerdranch.android.enterpriseshow.adapter.SiteDetailAdapter;
 import com.bignerdranch.android.enterpriseshow.bean.ImageBean;
 import com.bignerdranch.android.enterpriseshow.bean.ImageLibrary;
+import com.bignerdranch.android.enterpriseshow.click.ImageSelectClicked;
 import com.bignerdranch.android.enterpriseshow.views.SpaceItemDecoration;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/7/4/004.
  */
 
-public class SiteDetailActivity extends AppCompatActivity {
+public class SiteDetailActivity extends AppCompatActivity implements ImageSelectClicked {
     @Bind(R.id.header_title) TextView headerTitle;
     @Bind(R.id.header_right) TextView headerRight;
     @Bind(R.id.site_detail_recycler) RecyclerView mDetailRecycler;
@@ -93,5 +94,10 @@ public class SiteDetailActivity extends AppCompatActivity {
     public void startActivity() {
         Intent intent = new Intent(this, SiteDetailImgAc.class);
         startActivityForResult(intent, UPDATE);
+    }
+
+    @Override
+    public void clickImage(int position) {
+
     }
 }

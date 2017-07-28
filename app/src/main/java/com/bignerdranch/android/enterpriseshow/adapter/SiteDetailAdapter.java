@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -34,5 +35,10 @@ public class SiteDetailAdapter extends ImageBaseAdapter {
 
     public SiteDetailAdapter(SiteDetailActivity context, List<ImageBean> imageBeen) {
         super(context, imageBeen);
+    }
+
+    @Override
+    public void click(CheckBox checkBox) {
+
     }
 }

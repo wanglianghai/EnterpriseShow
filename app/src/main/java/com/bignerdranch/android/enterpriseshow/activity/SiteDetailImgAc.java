@@ -14,11 +14,15 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.bignerdranch.android.enterpriseshow.R;
 import com.bignerdranch.android.enterpriseshow.adapter.SiteDetailImgAdapter;
 import com.bignerdranch.android.enterpriseshow.bean.ImageBean;
 import com.bignerdranch.android.enterpriseshow.bean.ImageLibrary;
+import com.bignerdranch.android.enterpriseshow.click.ImageSelectClicked;
 import com.bignerdranch.android.enterpriseshow.uri.UriUtil;
 import com.bignerdranch.android.enterpriseshow.util.MPermissionUtil;
 import com.bignerdranch.android.enterpriseshow.views.SpaceItemDecoration;
@@ -29,12 +33,14 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SiteDetailImgAc extends AppCompatActivity {
+public class SiteDetailImgAc extends AppCompatActivity implements ImageSelectClicked {
     private static final String TAG = "SiteDetailImgAc";
     public static final int REQUEST_PHOTO = 0;
 
     @Bind(R.id.img_recycler_view)
     RecyclerView mRecyclerView;
+    @Bind(R.id.button_confirm)
+    Button mButtonConfirm;
 
     private SiteDetailImgAdapter mImgAdapter;
     private List<ImageBean> mImageBeen;
@@ -66,6 +72,13 @@ public class SiteDetailImgAc extends AppCompatActivity {
         mRecyclerView.addItemDecoration(new SpaceItemDecoration(10));
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
 
+        buConfirmSetText();
+        mButtonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         getImageList();
     }
 
@@ -91,6 +104,30 @@ public class SiteDetailImgAc extends AppCompatActivity {
     private void getImageList() {
         ImageDirThread thread = new ImageDirThread(this, mHandler);
         thread.start();
+    }
+
+    @Override
+    public void clickImage(int position) {
+        ImageBean bean = mImageBeen.get(position);
+        if (ImageLibrary.get().contain(bean)) {
+            //bean要全部一样
+            ImageLibrary.get().getImageBeen().remove(bean);
+            bean.setSelected(false);
+            buConfirmSetText();
+            return;
+        }
+        bean.setSelected(true);
+        ImageLibrary.get().getImageBeen().add(bean);
+        if (ImageLibrary.get().getImageBeen().size() >= 9) {
+            Toast.makeText(this, "最多只能上传9张图片", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        buConfirmSetText();
+    }
+
+    private void buConfirmSetText() {
+        String numString = ImageLibrary.get().getImageBeen().size() + "";
+        mButtonConfirm.setText("确定 " + numString + "/9");
     }
 
     //异步线程寻找图片位置(有数据的修改放里面方便)

@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.bignerdranch.android.enterpriseshow.R;
@@ -19,6 +20,8 @@ import com.bignerdranch.android.enterpriseshow.activity.BaseActivity;
 import com.bignerdranch.android.enterpriseshow.activity.SiteDetailActivity;
 import com.bignerdranch.android.enterpriseshow.activity.SiteDetailImgAc;
 import com.bignerdranch.android.enterpriseshow.bean.ImageBean;
+import com.bignerdranch.android.enterpriseshow.bean.ImageLibrary;
+import com.bignerdranch.android.enterpriseshow.click.ImageSelectClicked;
 import com.bignerdranch.android.enterpriseshow.uri.UriUtil;
 import com.bumptech.glide.Glide;
 
@@ -32,16 +35,19 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/7/22/022.
  */
 //根据数据加载图片，和对应的点击事件，holder为1/4的屏宽度
-public class ImageBaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class ImageBaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int CAMERA = 1;
     private static final int PICTURE = 2;
 
     private AppCompatActivity mContext;
+    private ImageSelectClicked mClicked;
 
     private List<ImageBean> mImageBeen;
 
+    public abstract void click(CheckBox checkBox);
     public ImageBaseAdapter(AppCompatActivity context, List<ImageBean> imageBeen) {
         mContext = context;
+        mClicked = (ImageSelectClicked) context;
         mImageBeen = imageBeen;
     }
     @Override
@@ -129,18 +135,35 @@ public class ImageBaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         @Bind(R.id.image)
         ImageView mImageView;
 
+        @Bind(R.id.checkbox_image)
+        CheckBox mCheckBox;
+
         public ImageHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
+            mCheckBox.setClickable(false);
+
             ViewGroup.LayoutParams params = itemView.getLayoutParams();
             params.height = BaseActivity.W / 4;
             itemView.setLayoutParams(params);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    click(mCheckBox);
+                    //发生点击事件后的动作
+                    mClicked.clickImage(getAdapterPosition());
+                }
+            });
         }
 
         public void bind(ImageBean bean) {
             //没给出大小不能设置（133-135itemView.setLayoutParams(params);）
             Glide.with(mContext).load(bean.getImagePath()).into(mImageView);
+            mCheckBox.setChecked(bean.isSelected());
+            if (ImageLibrary.get().contain(bean)) {
+                mCheckBox.setChecked(true);
+            }
         }
     }
 }

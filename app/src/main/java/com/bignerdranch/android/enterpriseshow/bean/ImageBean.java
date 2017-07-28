@@ -6,8 +6,17 @@ package com.bignerdranch.android.enterpriseshow.bean;
 
 public class ImageBean {
     private String imagePath;
+    private boolean selected = false;
 
     public ImageBean(){}
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 
     public ImageBean(String imagePath) {
         this.imagePath = imagePath;
