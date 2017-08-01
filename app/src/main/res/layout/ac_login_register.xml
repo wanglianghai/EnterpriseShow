@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/exit"
+        android:padding="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/close_ico"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/show_logo_ico"
+            android:padding="100dp"/>
+
+        <LinearLayout style="@style/linear_layout_captcha">
+
+            <TextView
+                style="@style/text_captcha"
+                android:text="手机"/>
+
+            <EditText
+                style="@style/text_captcha_hint"
+                android:hint="请输入手机号码"/>
+        </LinearLayout>
+
+        <TextView style="@style/line_captcha"/>
+
+        <LinearLayout style="@style/linear_layout_captcha">
+
+            <TextView
+                style="@style/text_captcha"
+                android:text="验证码"/>
+
+            <EditText
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:background="@null"
+                android:textColor="@color/black_99"
+                android:hint="请输入验证码"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:text="|"
+                android:textColor="@color/black_7c8"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/main_blue"
+                android:text="获取验证码"/>
+        </LinearLayout>
+
+        <TextView style="@style/line_captcha"/>
+
+        <LinearLayout style="@style/linear_layout_captcha">
+
+            <TextView
+                style="@style/text_captcha"
+                android:text="设置密码"/>
+
+            <EditText
+                style="@style/text_captcha_hint"
+                android:hint="请输入密码"/>
+        </LinearLayout>
+
+        <TextView style="@style/line_captcha"/>
+
+        <LinearLayout style="@style/linear_layout_captcha">
+
+            <TextView
+                style="@style/text_captcha"
+                android:text="确认密码"/>
+
+            <EditText
+                style="@style/text_captcha_hint"
+                android:hint="请输入密码"/>
+        </LinearLayout>
+
+        <TextView style="@style/line_captcha"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

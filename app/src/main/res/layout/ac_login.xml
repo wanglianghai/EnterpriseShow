@@ -3,10 +3,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/register"
+        android:layout_height="wrap_content">
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:orientation="vertical">
 
@@ -62,22 +64,24 @@
             android:background="@drawable/create_show_bg"
             android:textColor="@color/white"
             android:text="登入"/>
+
+        <TextView
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:layout_marginTop="150dp"
+            android:text="新用户注册"
+            android:textColor="@color/main_blue"/>
     </LinearLayout>
+
+    </ScrollView>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="12dp"
         android:src="@drawable/close_ico"/>
-
-    <TextView
-        android:id="@+id/register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:paddingBottom="12dp"
-        android:text="新用户注册"
-        android:textColor="@color/main_blue"/>
 
 </RelativeLayout>

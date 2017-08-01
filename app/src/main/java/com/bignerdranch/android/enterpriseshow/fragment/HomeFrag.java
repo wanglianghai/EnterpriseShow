@@ -12,25 +12,29 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bignerdranch.android.enterpriseshow.R;
+import com.bignerdranch.android.enterpriseshow.activity.LoginActivity;
 import com.bignerdranch.android.enterpriseshow.activity.ModelWebActivity;
 import com.bignerdranch.android.enterpriseshow.activity.MySiteActivity;
 import com.bignerdranch.android.enterpriseshow.activity.SiteDetailActivity;
 import com.bignerdranch.android.enterpriseshow.activity.SiteStatisticsActivity;
 import com.bignerdranch.android.enterpriseshow.adapter.ModelAdapter;
 
+import com.bignerdranch.android.enterpriseshow.bean.User;
 import com.bignerdranch.android.enterpriseshow.model.MyItem;
 import com.bignerdranch.android.enterpriseshow.network.MyNetwork;
 import com.bignerdranch.android.enterpriseshow.views.MyRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 
+import org.reactivestreams.Subscription;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.Observer;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2017/7/3/003.
@@ -48,14 +52,20 @@ public class HomeFrag extends Fragment {
 
     private View rootView;
     private Observer<MyItem> mObserver = new Observer<MyItem>() {
-        @Override
-        public void onCompleted() {
-
-        }
 
         @Override
         public void onError(Throwable e) {
             Log.e(TAG, "onError: ", e);
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
+
+        @Override
+        public void onSubscribe(Disposable d) {
+
         }
 
         @Override
@@ -107,11 +117,20 @@ public class HomeFrag extends Fragment {
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.check_detail:
-                Log.i(TAG, "onClick: " + "0");
-                startActivity(new Intent(activity, SiteStatisticsActivity.class));
+                if (User.sUser == null) {
+                    User.getUser();
+                    startActivity(new Intent(activity, LoginActivity.class));
+                } else {
+                    startActivity(new Intent(activity, SiteStatisticsActivity.class));
+                }
                 break;
             case R.id.my_show:
-                startActivity(new Intent(activity, MySiteActivity.class));
+                if (User.sUser == null) {
+                    User.getUser();
+                    startActivity(new Intent(activity, LoginActivity.class));
+                } else {
+                    startActivity(new Intent(activity, MySiteActivity.class));
+                }
                 break;
             case R.id.add_show_linear:
                 startActivity(new Intent(activity, SiteDetailActivity.class));
@@ -120,11 +139,11 @@ public class HomeFrag extends Fragment {
     }
 
     private void search() {
-        /*mSubscription = MyNetwork.myApi()
+        MyNetwork.myApi()
                 .search()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mObserver);*/
+                .subscribe(mObserver);
     }
 
     @Override
@@ -134,8 +153,8 @@ public class HomeFrag extends Fragment {
     }
 
     private void unSubscription() {
-        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
-            mSubscription.unsubscribe();
+        if (mSubscription != null) {
+            mSubscription = null;
         }
     }
 }
