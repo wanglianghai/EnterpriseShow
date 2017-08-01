@@ -21,7 +21,7 @@ import com.bignerdranch.android.enterpriseshow.adapter.ModelAdapter;
 
 import com.bignerdranch.android.enterpriseshow.bean.User;
 import com.bignerdranch.android.enterpriseshow.model.MyItem;
-import com.bignerdranch.android.enterpriseshow.network.MyNetwork;
+import com.bignerdranch.android.enterpriseshow.network.EnterpriseShowNetwork;
 import com.bignerdranch.android.enterpriseshow.views.MyRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -103,7 +103,7 @@ public class HomeFrag extends Fragment {
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         MyItem.DataBean model = (MyItem.DataBean) adapter.getItem(position);
                         Intent intent = new Intent(activity, ModelWebActivity.class);
-                        intent.putExtra(MyNetwork.preUrl, MyNetwork.baseUrl + model.getPreUrl());
+                        intent.putExtra(EnterpriseShowNetwork.preUrl, EnterpriseShowNetwork.baseUrl + model.getPreUrl());
                         startActivity(intent);
                     }
                 });
@@ -139,7 +139,7 @@ public class HomeFrag extends Fragment {
     }
 
     private void search() {
-        MyNetwork.myApi()
+        EnterpriseShowNetwork.myApi()
                 .search()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

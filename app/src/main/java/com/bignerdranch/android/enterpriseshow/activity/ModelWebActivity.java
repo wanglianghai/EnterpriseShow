@@ -1,7 +1,6 @@
 package com.bignerdranch.android.enterpriseshow.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,10 +11,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.bignerdranch.android.enterpriseshow.R;
-import com.bignerdranch.android.enterpriseshow.network.MyNetwork;
+import com.bignerdranch.android.enterpriseshow.network.EnterpriseShowNetwork;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -55,7 +53,7 @@ public class ModelWebActivity extends AppCompatActivity {
             }
         });
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(getIntent().getStringExtra(MyNetwork.preUrl));
+        webView.loadUrl(getIntent().getStringExtra(EnterpriseShowNetwork.preUrl));
     }
 
     @OnClick({R.id.back, R.id.user_model})

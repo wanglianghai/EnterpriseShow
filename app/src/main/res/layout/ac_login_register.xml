@@ -30,7 +30,9 @@
                 android:text="手机"/>
 
             <EditText
+                android:id="@+id/phone_number"
                 style="@style/text_captcha_hint"
+                android:inputType="phone"
                 android:hint="请输入手机号码"/>
         </LinearLayout>
 
@@ -61,6 +63,7 @@
                 android:textColor="@color/black_7c8"/>
 
             <TextView
+                android:id="@+id/captcha"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textColor="@color/main_blue"
