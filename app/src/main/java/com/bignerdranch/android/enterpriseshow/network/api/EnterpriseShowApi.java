@@ -1,5 +1,6 @@
 package com.bignerdranch.android.enterpriseshow.network.api;
 
+import com.bignerdranch.android.enterpriseshow.bean.LoginBean;
 import com.bignerdranch.android.enterpriseshow.bean.UserCaptchaBean;
 import com.bignerdranch.android.enterpriseshow.model.MyItem;
 
@@ -20,4 +21,11 @@ public interface EnterpriseShowApi {
     @FormUrlEncoded
     @POST("/qiyexiu/api/Login_registCaptcha")
     Observable<UserCaptchaBean> captcha(@Field("userName") String userName);
+
+    @FormUrlEncoded
+    @POST("/qiyexiu/api/Login_login")
+    Observable<LoginBean> login(@Field("userName") String userName, @Field("passWord") String passWord,
+                                @Field("device") String device, @Field("deviceSysVersion") String deviceSysVersion,
+                                @Field("channelId") String channelId, @Field("usePl") int usePl,
+                                @Field("appVersion") String appVersion);
 }

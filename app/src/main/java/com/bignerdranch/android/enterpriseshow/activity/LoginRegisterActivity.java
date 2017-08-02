@@ -28,6 +28,11 @@ public class LoginRegisterActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
+    @OnClick(R.id.exit)
+    void onClickExit() {
+        finish();
+    }
+
     @OnClick({R.id.captcha})
     void onClick() {
         String userName = mUsernameET.getText().toString();
