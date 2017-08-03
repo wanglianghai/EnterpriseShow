@@ -18,14 +18,6 @@ import butterknife.OnClick;
  */
 
 public class MsgFrag extends Fragment {
-    public static MsgFrag fragment;
-
-    public static MsgFrag newInstance() {
-        if (fragment == null) {
-            fragment = new MsgFrag();
-        }
-        return fragment;
-    }
 
     @Nullable
     @Override

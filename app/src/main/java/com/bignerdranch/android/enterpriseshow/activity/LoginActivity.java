@@ -28,15 +28,13 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.pass_word)
     EditText mETPassWord;
 
-    private Login mLoginUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_login);
         ButterKnife.bind(this);
-
-        mLoginUser = new Login();
     }
 
     @OnClick(R.id.login)
@@ -58,31 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        mLoginUser.setUserName(userName);
-        mLoginUser.setPassWord(passWord);
-        mLoginUser.setDevice("Android");
-        mLoginUser.setDeviceSysVersion(Build.VERSION.RELEASE);
-        mLoginUser.setChannelId("");
-        mLoginUser.setUsePl(1);
-        String version = "1.0";
-        PackageManager m = getPackageManager();
-        try {
-            PackageInfo info = m.getPackageInfo("com.bignerdranch.android.enterpriseshow", 0);
-            version = info.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        mLoginUser.setAppVersion(version);
-        mLoginUser.getObservable().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<LoginBean>() {
-                    @Override
-                    public void accept(LoginBean loginBean) throws Exception {
-                        Toast.makeText(LoginActivity.this, loginBean.getMsg(), Toast.LENGTH_SHORT).show();
-                        User.getUser().setId((long) loginBean.getData().getId());
-                        User.getUser().setSessionId(loginBean.getData().getSessionId());
-                    }
-                });
+        new Control().login(userName, passWord, this, null);
     }
 
     @OnClick({R.id.register})

@@ -3,6 +3,7 @@ package com.bignerdranch.android.enterpriseshow.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.SparseArray;
 
 import com.bignerdranch.android.enterpriseshow.R;
 import com.bignerdranch.android.enterpriseshow.activity.BaseActivity;
@@ -16,21 +17,32 @@ import com.bignerdranch.android.enterpriseshow.fragment.MsgFrag;
  */
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    private SparseArray<Fragment> mFragmentSparseArray;
     public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
+        mFragmentSparseArray = new SparseArray<>(3);
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return HomeFrag.newInstance();
+                return inSparseArray(new HomeFrag(), 0);
             case 1:
-                return MsgFrag.newInstance();
+                return inSparseArray(new MsgFrag(), 1);
             case 2:
-                return MineFrag.newInstance();
+                return inSparseArray(new MineFrag(), 2);
         }
         return null;
+    }
+
+    private Fragment inSparseArray(Fragment f, int key) {
+        mFragmentSparseArray.put(key, f);
+        return f;
+    }
+
+    public Fragment getSparseArray(int key) {
+        return mFragmentSparseArray.get(key);
     }
 
     @Override

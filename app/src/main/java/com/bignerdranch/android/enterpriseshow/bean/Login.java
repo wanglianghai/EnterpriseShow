@@ -1,6 +1,7 @@
 package com.bignerdranch.android.enterpriseshow.bean;
 
 import android.net.Network;
+import android.os.Build;
 
 import com.bignerdranch.android.enterpriseshow.network.EnterpriseShowNetwork;
 
@@ -13,10 +14,10 @@ import io.reactivex.Observable;
 public class Login {
     private String userName;        	 //用户名
     private String passWord;          	 //密码
-    private String device ;         	 //Android  Iphone
-    private String deviceSysVersion;     //设备系统版本
-    private String channelId;     	     //(根据 百度云，或者 其他的 平台参数获取)
-    private Integer usePl;               //1 百度云推送
+    private String device = "Android";         	 //Android  Iphone
+    private String deviceSysVersion = Build.VERSION.RELEASE;     //设备系统版本
+    private String channelId = "";     	     //(根据 百度云，或者 其他的 平台参数获取)
+    private Integer usePl = 1;               //1 百度云推送
     private String appVersion;          //当前app的版本号
 
     public Login(){}

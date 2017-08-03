@@ -56,7 +56,6 @@ public class HomeFrag extends Fragment {
 
     private Subscription mSubscription;
     private static final String TAG = "HomeFrag";
-    public static HomeFrag fragment;
     private AppCompatActivity activity;
     private ModelAdapter adapter;
 
@@ -84,12 +83,6 @@ public class HomeFrag extends Fragment {
             adapter.setNewData(myItem.getData());
         }
     };
-    public static HomeFrag newInstance() {
-        if (fragment == null) {
-            fragment = new HomeFrag();
-        }
-        return fragment;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -120,13 +113,20 @@ public class HomeFrag extends Fragment {
             }
         }
 
+        showRecord();
+
         return rootView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        showRecord();
+    }
+
+    public void showRecord() {
         if (User.sUser != null) {
+            Log.i("Control", "showRecord: ");
             EnterpriseShowNetwork.myApi().homeStatis(User.getUser().getId(), User.getUser().getSessionId())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

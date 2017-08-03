@@ -20,6 +20,11 @@ public class User {
         return sUser;
     }
 
+    @Override
+    public  String toString() {
+        return "id:" + id + " sessionId:" + sessionId;
+    }
+
     public String getUsername() {
         return username;
     }

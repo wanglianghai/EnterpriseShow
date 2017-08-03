@@ -14,14 +14,6 @@ import com.bignerdranch.android.enterpriseshow.R;
  */
 
 public class MineFrag extends Fragment {
-    public static MineFrag fragment;
-
-    public static MineFrag newInstance() {
-        if (fragment == null) {
-            fragment = new MineFrag();
-        }
-        return fragment;
-    }
 
     @Nullable
     @Override

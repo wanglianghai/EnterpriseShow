@@ -9,7 +9,13 @@ import android.widget.TextView;
 
 import com.bignerdranch.android.enterpriseshow.R;
 import com.bignerdranch.android.enterpriseshow.adapter.SectionsPagerAdapter;
+import com.bignerdranch.android.enterpriseshow.bean.Login;
+import com.bignerdranch.android.enterpriseshow.bean.LoginBean;
+import com.bignerdranch.android.enterpriseshow.db.LoginTable;
+import com.bignerdranch.android.enterpriseshow.db.ShowTable;
 import com.bignerdranch.android.enterpriseshow.views.MyViewPage;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +51,15 @@ public class MainActivity extends BaseActivity {
         addListener();
 
         mHomeText.setSelected(true);
+        login();
+    }
+
+    private void login() {
+        if (DataSupport.isExist(LoginTable.class)) {
+            int id = DataSupport.find(ShowTable.class, 1).getLastId();
+            LoginTable loginTable = DataSupport.find(LoginTable.class, id);
+            new Control().login(loginTable.getUsername(), loginTable.getPassword(), this, adapter);
+        }
     }
 
     @OnClick({R.id.main_home, R.id.main_msg, R.id.main_mine})
