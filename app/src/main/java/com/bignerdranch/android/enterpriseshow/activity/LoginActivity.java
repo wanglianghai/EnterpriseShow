@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.bignerdranch.android.enterpriseshow.R;
 import com.bignerdranch.android.enterpriseshow.bean.Login;
 import com.bignerdranch.android.enterpriseshow.bean.LoginBean;
+import com.bignerdranch.android.enterpriseshow.bean.User;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -78,6 +79,8 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void accept(LoginBean loginBean) throws Exception {
                         Toast.makeText(LoginActivity.this, loginBean.getMsg(), Toast.LENGTH_SHORT).show();
+                        User.getUser().setId((long) loginBean.getData().getId());
+                        User.getUser().setSessionId(loginBean.getData().getSessionId());
                     }
                 });
     }

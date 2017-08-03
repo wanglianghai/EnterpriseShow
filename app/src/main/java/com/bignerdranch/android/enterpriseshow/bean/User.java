@@ -8,6 +8,8 @@ public class User {
     public static User sUser;
     private String username;
     private String password;
+    private Long id;
+    private String sessionId;
 
     private User(){}
 
@@ -32,5 +34,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }

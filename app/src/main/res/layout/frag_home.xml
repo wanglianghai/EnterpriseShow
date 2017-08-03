@@ -51,6 +51,7 @@
                             android:text="总浏览量"/>
 
                         <TextView
+                            android:id="@+id/total_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="--"
@@ -70,6 +71,7 @@
                             android:text="新增浏览量"/>
 
                         <TextView
+                            android:id="@+id/new_increase"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="--"
@@ -89,6 +91,7 @@
                             android:text="留言总数据"/>
 
                         <TextView
+                            android:id="@+id/leave_message"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="--"

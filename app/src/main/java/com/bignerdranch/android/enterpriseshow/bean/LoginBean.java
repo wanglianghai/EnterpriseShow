@@ -10,6 +10,7 @@ public class LoginBean {
      * code : 1
      * msg : 登录成功
      * data : {"id":7,"sessionId":"14FBC991295236F1DBDF267BA5D9F6C6","userName":"18267008702"}
+     *                             14FBC991295236F1DBDF267BA5D9F6C6
      */
 
     private String code;

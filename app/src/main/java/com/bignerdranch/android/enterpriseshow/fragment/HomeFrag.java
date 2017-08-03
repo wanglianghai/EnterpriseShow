@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bignerdranch.android.enterpriseshow.R;
 import com.bignerdranch.android.enterpriseshow.activity.LoginActivity;
@@ -19,6 +20,8 @@ import com.bignerdranch.android.enterpriseshow.activity.SiteDetailActivity;
 import com.bignerdranch.android.enterpriseshow.activity.SiteStatisticsActivity;
 import com.bignerdranch.android.enterpriseshow.adapter.ModelAdapter;
 
+import com.bignerdranch.android.enterpriseshow.bean.BaseResultEntity;
+import com.bignerdranch.android.enterpriseshow.bean.Statistics;
 import com.bignerdranch.android.enterpriseshow.bean.User;
 import com.bignerdranch.android.enterpriseshow.model.MyItem;
 import com.bignerdranch.android.enterpriseshow.network.EnterpriseShowNetwork;
@@ -34,6 +37,7 @@ import butterknife.OnClick;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -43,6 +47,12 @@ import io.reactivex.schedulers.Schedulers;
 public class HomeFrag extends Fragment {
     @Bind(R.id.model_list)
     MyRecyclerView modelList;
+    @Bind(R.id.total_view)
+    TextView mTVTotalView;
+    @Bind(R.id.new_increase)
+    TextView mTVNewIncrease;
+    @Bind(R.id.leave_message)
+    TextView mTVLeaveMessage;
 
     private Subscription mSubscription;
     private static final String TAG = "HomeFrag";
@@ -113,12 +123,29 @@ public class HomeFrag extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (User.sUser != null) {
+            EnterpriseShowNetwork.myApi().homeStatis(User.getUser().getId(), User.getUser().getSessionId())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<BaseResultEntity<Statistics>>() {
+                        @Override
+                        public void accept(BaseResultEntity<Statistics> entity) throws Exception {
+                            mTVTotalView.setText(entity.getData().getPageviews() + "");
+                            mTVNewIncrease.setText(entity.getData().getTodayPageviews() + "");
+                            mTVLeaveMessage.setText(entity.getData().getNewsNumber() + "");
+                        }
+                    });
+        }
+    }
+
     @OnClick({R.id.check_detail, R.id.my_show, R.id.add_show_linear})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.check_detail:
                 if (User.sUser == null) {
-                    User.getUser();
                     startActivity(new Intent(activity, LoginActivity.class));
                 } else {
                     startActivity(new Intent(activity, SiteStatisticsActivity.class));
@@ -126,7 +153,6 @@ public class HomeFrag extends Fragment {
                 break;
             case R.id.my_show:
                 if (User.sUser == null) {
-                    User.getUser();
                     startActivity(new Intent(activity, LoginActivity.class));
                 } else {
                     startActivity(new Intent(activity, MySiteActivity.class));

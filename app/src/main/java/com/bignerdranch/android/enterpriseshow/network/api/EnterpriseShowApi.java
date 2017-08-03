@@ -1,6 +1,8 @@
 package com.bignerdranch.android.enterpriseshow.network.api;
 
+import com.bignerdranch.android.enterpriseshow.bean.BaseResultEntity;
 import com.bignerdranch.android.enterpriseshow.bean.LoginBean;
+import com.bignerdranch.android.enterpriseshow.bean.Statistics;
 import com.bignerdranch.android.enterpriseshow.bean.UserCaptchaBean;
 import com.bignerdranch.android.enterpriseshow.model.MyItem;
 
@@ -28,4 +30,9 @@ public interface EnterpriseShowApi {
                                 @Field("device") String device, @Field("deviceSysVersion") String deviceSysVersion,
                                 @Field("channelId") String channelId, @Field("usePl") int usePl,
                                 @Field("appVersion") String appVersion);
+
+    @FormUrlEncoded
+    @POST("/qiyexiu/api/SiteCount_findAllCount")
+    Observable<BaseResultEntity<Statistics>> homeStatis(@Field("userId") Long userId, @Field("sessionId") String sessionId);
+
 }
